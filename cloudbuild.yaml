@@ -49,7 +49,7 @@ steps:
       - '-c'
       - |
         pwd
-        ls -lah
+        ls -la
 
   - name: 'gcr.io/cloud-builders/docker'
     id: CI Phase - Build Image and push to registry
