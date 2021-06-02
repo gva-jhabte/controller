@@ -46,9 +46,8 @@ steps:
       - '-c'
       - |
         ls -pal
-        docker build \
-          -t eu.gcr.io/${_PROJECT_ID}/controller:v1 -f infra/Dockerfile .
-        docker push eu.gcr.io/${_PROJECT_ID}/controller:v1
+        docker build -t eu.gcr.io/$PROJECT_ID/controller:v1 -f infra/Dockerfile .
+        docker push eu.gcr.io/$PROJECT_ID/controller:v1
 
 
 timeout: 3600s # 60min, overriding the default 10min build timeout
