@@ -46,7 +46,7 @@ steps:
       - '-c'
       - |
         ls -pal
-        docker build -t eu.gcr.io/$PROJECT_ID/controller:v1 -f infra/Dockerfile .
+        docker build -t eu.gcr.io/$PROJECT_ID/controller:v1 -f dockerfile .
         docker push eu.gcr.io/$PROJECT_ID/controller:v1
 
 
