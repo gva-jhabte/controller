@@ -1,0 +1,66 @@
+substitutions:
+  # _LOCATION: 'europe-west2'
+  _REGION: 'europe-west4'
+  _PROJECT_NUMBER: '311966843135'
+  _REPO_DIR: infrastructure-deploy
+
+steps:
+  - name: ubuntu
+    id: Build information
+    entrypoint: bash
+    args:
+      - '-c'
+      - |
+        echo \*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*
+        echo BUILD DETAILS:
+        [ ! -z "${PROJECT_ID}" ]     && echo "Project ID:    ${PROJECT_ID}"
+        [ ! -z "${BUILD_ID}" ]       && echo "Build ID:      ${BUILD_ID}"
+        [ ! -z "${COMMIT_SHA}" ]     && echo "Commit SHA:    ${COMMIT_SHA}"
+        [ ! -z "${SHORT_SHA}" ]      && echo "Short SHA:     ${SHORT_SHA}"
+        [ ! -z "${REPO_NAME}" ]      && echo "Repo name:     ${REPO_NAME}"
+        [ ! -z "${BRANCH_NAME}" ]    && echo "Branch name:   ${BRANCH_NAME}"
+        [ ! -z "${TAG_NAME}" ]       && echo "Tag name:      ${TAG_NAME}"
+        [ ! -z "${REVISION_ID}" ]    && echo "Revision ID:   ${REVISION_ID}"
+        [ ! -z "${_HEAD_BRANCH}" ]   && echo "Head branch:   ${_HEAD_BRANCH}"
+        [ ! -z "${_BASE_BRANCH}" ]   && echo "Base branch:   ${_BASE_BRANCH}"
+        [ ! -z "${_HEAD_REPO_URL}" ] && echo "Head repo URL: ${_HEAD_REPO_URL}"
+        [ ! -z "${_PR_NUMBER}" ]     && echo "PR number:     ${_PR_NUMBER}"
+        echo \*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*
+  #
+  # Prepare environment
+  #
+  - name: gcr.io/cloud-builders/git
+    id: Clean Workspace
+    entrypoint: sh
+    args:
+      - '-c'
+      - |
+        rm -rf *
+        rm -rf .[a-zA-Z_]*
+
+
+  # #
+  # # Deploy code
+  # #
+  - name: gcr.io/cloud-builders/git
+    id: Troubleshooting
+    entrypoint: sh
+    args:
+      - '-c'
+      - |
+        pwd
+        ls -lah
+
+  - name: 'gcr.io/cloud-builders/docker'
+    id: CI Phase - Build Image and push to registry
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+        ls -pal
+        docker build \
+          --tag=eu.gcr.io/${_PROJECT_NUMBER}/controller:v1 -f infra/Dockerfile .
+        docker push eu.gcr.io/${_PROJECT_NUMBER}/controller:v1
+
+
+timeout: 3600s # 60min, overriding the default 10min build timeout

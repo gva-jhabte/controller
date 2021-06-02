@@ -1,0 +1,14 @@
+flask>=1.1.1
+git+https://github.com/gva-jhabte/gva-data
+git+https://github.com/gva-jhabte/gva-logging
+google-cloud-tasks
+git+https://github.com/gva-jhabte/gva-flows
+git+https://github.com/gva-jhabte/gva-services
+git+https://github.com/gva-jhabte/gva-utils
+git+https://github.com/gva-jhabte/gva-errors
+gunicorn
+flask_cors
+flask_sslify
+psycopg2-binary
+SQLAlchemy==1.3.23
+google-cloud-secret-manager

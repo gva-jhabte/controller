@@ -1,0 +1,1 @@
+gcloud run services list --region europe-west1 --platform managed | awk 'NR==2 {print $4}' > service.yml
