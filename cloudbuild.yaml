@@ -5,7 +5,7 @@ substitutions:
   _REPO_DIR: infrastructure-deploy
 
 steps:
-  - name: ubuntu
+  - name: marketplace.gcr.io/google/centos7
     id: Build information
     entrypoint: bash
     args:
@@ -26,18 +26,6 @@ steps:
         [ ! -z "${_HEAD_REPO_URL}" ] && echo "Head repo URL: ${_HEAD_REPO_URL}"
         [ ! -z "${_PR_NUMBER}" ]     && echo "PR number:     ${_PR_NUMBER}"
         echo \*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*
-  #
-  # Prepare environment
-  #
-  - name: gcr.io/cloud-builders/git
-    id: Clean Workspace
-    entrypoint: sh
-    args:
-      - '-c'
-      - |
-        rm -rf *
-        rm -rf .[a-zA-Z_]*
-
 
   # #
   # # Deploy code
@@ -59,8 +47,8 @@ steps:
       - |
         ls -pal
         docker build \
-          --tag=eu.gcr.io/${_PROJECT_NUMBER}/controller:v1 -f infra/Dockerfile .
-        docker push eu.gcr.io/${_PROJECT_NUMBER}/controller:v1
+          --tag=eu.gcr.io/${_PROJECT_ID}/controller:v1 -f infra/Dockerfile .
+        docker push eu.gcr.io/${_PROJECT_ID}/controller:v1
 
 
 timeout: 3600s # 60min, overriding the default 10min build timeout
