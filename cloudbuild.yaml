@@ -47,7 +47,7 @@ steps:
       - |
         ls -pal
         docker build \
-          --tag=eu.gcr.io/${_PROJECT_ID}/controller:v1 -f infra/Dockerfile .
+          -t eu.gcr.io/${_PROJECT_ID}/controller:v1 -f infra/Dockerfile .
         docker push eu.gcr.io/${_PROJECT_ID}/controller:v1
 
 
