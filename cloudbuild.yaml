@@ -49,7 +49,7 @@ steps:
         docker build -t eu.gcr.io/$PROJECT_ID/controller:v1 -f dockerfile .
         docker push eu.gcr.io/$PROJECT_ID/controller:v1
 
-  - name: 'gcr.io/cloud-builders/gcloud'
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
     id: Deploying to Cloud Run
     entrypoint: 'bash'
     args:
