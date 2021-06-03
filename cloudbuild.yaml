@@ -55,9 +55,7 @@ steps:
     args:
       - '-c'
       - |
-        gcloud run deploy controller \
-        --region europe-west4 --image=eu.gcr.io/jon-deploy-project/controller:v1 \
-        --platform managed --vpc-connector vpc-con --add-cloudsql-instances=jon-deploy-project:europe-west4:state-database
+        gcloud run deploy controller  --region europe-west4 --image=eu.gcr.io/jon-deploy-project/controller:v1  --platform managed --vpc-connector vpc-con --add-cloudsql-instances=jon-deploy-project:europe-west4:state-database
 
 
 timeout: 3600s # 60min, overriding the default 10min build timeout
