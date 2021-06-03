@@ -39,15 +39,15 @@ steps:
         pwd
         ls -la
 
-  - name: 'gcr.io/cloud-builders/docker'
-    id: CI Phase - Build Image and push to registry
-    entrypoint: 'bash'
-    args:
-      - '-c'
-      - |
-        ls -pal
-        docker build -t eu.gcr.io/$PROJECT_ID/controller:v1 -f dockerfile .
-        docker push eu.gcr.io/$PROJECT_ID/controller:v1
+  # - name: 'gcr.io/cloud-builders/docker'
+  #   id: CI Phase - Build Image and push to registry
+  #   entrypoint: 'bash'
+  #   args:
+  #     - '-c'
+  #     - |
+  #       ls -pal
+  #       docker build -t eu.gcr.io/$PROJECT_ID/controller:v1 -f dockerfile .
+  #       docker push eu.gcr.io/$PROJECT_ID/controller:v1
 
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
     id: Deploying to Cloud Run
