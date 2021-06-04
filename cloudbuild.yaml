@@ -2,7 +2,7 @@ substitutions:
   # _LOCATION: 'europe-west2'
   _REGION: 'europe-west4'
   _PROJECT_NUMBER: '311966843135'
-  _REPO_DIR: infrastructure-deploy
+  _SERVICE_NAME: '${_SERVICE_NAME}'
 
 steps:
   - name: marketplace.gcr.io/google/centos7
@@ -39,15 +39,15 @@ steps:
         pwd
         ls -la
 
-  # - name: 'gcr.io/cloud-builders/docker'
-  #   id: CI Phase - Build Image and push to registry
-  #   entrypoint: 'bash'
-  #   args:
-  #     - '-c'
-  #     - |
-  #       ls -pal
-  #       docker build -t eu.gcr.io/$PROJECT_ID/controller:v1 -f dockerfile .
-  #       docker push eu.gcr.io/$PROJECT_ID/controller:v1
+  - name: 'gcr.io/cloud-builders/docker'
+    id: CI Phase - Build Image and push to registry
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+        ls -pal
+        docker build -t eu.gcr.io/$PROJECT_ID/${_SERVICE_NAME}:v1 -f infra/dockerfile .
+        docker push eu.gcr.io/$PROJECT_ID/${_SERVICE_NAME}:v1
 
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
     id: Deploying to Cloud Run
@@ -55,7 +55,7 @@ steps:
     args:
       - '-c'
       - |
-        gcloud run deploy controller  --region europe-west4 --image=eu.gcr.io/jon-deploy-project/controller:v1  --platform managed --vpc-connector vpc-con --add-cloudsql-instances=jon-deploy-project:europe-west4:state-database
+        gcloud run deploy ${_SERVICE_NAME}  --region europe-west4 --image=eu.gcr.io/jon-deploy-project/${_SERVICE_NAME}:v1  --platform managed --vpc-connector vpc-con --add-cloudsql-instances=jon-deploy-project:europe-west4:state-database
 
 
 timeout: 3600s # 60min, overriding the default 10min build timeout
