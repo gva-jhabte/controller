@@ -10,7 +10,7 @@ RUN apt-get update && apt-get install google-cloud-sdk -y
 RUN mkdir /app
 WORKDIR /app
 ADD . /app/
-RUN pip install -r requirements.txt
+RUN pip install -r infra/requirements.txt
 
 EXPOSE 2100
 CMD exec gunicorn --bind :$PORT main:app --workers 1 --threads 1 --timeout 1800
