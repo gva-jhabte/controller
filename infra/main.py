@@ -19,7 +19,7 @@ CORS(app, supports_credentials=True)
 sslify = SSLify(app)
 
 client = secretmanager.SecretManagerServiceClient()
-project_id = 311966843135
+project_id = 642161594262
 username = client.access_secret_version(request={"name": F"projects/{project_id}/secrets/dbuser/versions/latest"})
 password = client.access_secret_version(request={"name": F"projects/{project_id}/secrets/dbpass/versions/latest"})
 name = client.access_secret_version(request={"name": F"projects/{project_id}/secrets/dbname/versions/latest"})
