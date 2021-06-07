@@ -1,7 +1,6 @@
 substitutions:
   # _LOCATION: 'europe-west2'
   _REGION: 'europe-west4'
-  _PROJECT_NUMBER: '311966843135'
   _SERVICE_NAME: controller
 
 steps:

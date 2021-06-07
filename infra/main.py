@@ -187,7 +187,7 @@ def process_command(job_name, action):
         with open("service.yml") as f:
             for line in f:
                 service_url = ''.join(line.split())
-                create_http_task(project='jon-deploy-project',
+                create_http_task(project='dcsgva-lab-sandbox-jonathan',
                                 queue='my-queue',
                                 url=F"{service_url}/{job_name}",
                                 payload=context)
