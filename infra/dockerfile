@@ -9,7 +9,7 @@ RUN apt-get update && apt-get install google-cloud-sdk -y
 
 RUN mkdir /app
 WORKDIR /app
-ADD . /app/
+COPY infra /app/
 RUN pip install -r infra/requirements.txt
 
 EXPOSE 2100
