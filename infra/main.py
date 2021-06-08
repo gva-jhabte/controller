@@ -30,9 +30,9 @@ db_pass = password.payload.data.decode("UTF-8")
 db_name = name.payload.data.decode("UTF-8")
 # we use the below with private ip only
 db_host = dbhost.payload.data.decode("UTF-8")
-clientcert = client.access_secret_version(request={"name": F"projects/{project_id}/secrets/client-cert/versions/latest"}).payload.data.decode("UTF-8")
-clientkey = client.access_secret_version(request={"name": F"projects/{project_id}/secrets/client-key/versions/latest"}).payload.data.decode("UTF-8")
-serverca = client.access_secret_version(request={"name": F"projects/{project_id}/secrets/server-ca/versions/latest"}).payload.data.decode("UTF-8")
+clientcert = client.access_secret_version(request={"name": F"projects/{project_id}/secrets/clientcert/versions/latest"}).payload.data.decode("UTF-8")
+clientkey = client.access_secret_version(request={"name": F"projects/{project_id}/secrets/clientkey/versions/latest"}).payload.data.decode("UTF-8")
+serverca = client.access_secret_version(request={"name": F"projects/{project_id}/secrets/serverca/versions/latest"}).payload.data.decode("UTF-8")
 
 f = open('client-cert.pem', 'w')
 f.write(clientcert)
